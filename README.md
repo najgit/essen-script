@@ -27,7 +27,6 @@ sudo chmod 600 ~/.ssh/id_ed25519
 ```
 ## 2. install essentials 
 ```
-
 sudo apt update \
 && sudo apt install -y curl iputils-ping net-tools curl git wget make man-db jq \
 && wget http://security.ubuntu.com/ubuntu/pool/main/o/openssl1.0/libssl1.0.0_1.0.2n-1ubuntu5.13_amd64.deb -O ~/libssl1.0.0_1.0.2n-1ubuntu5.13_amd64.deb \
