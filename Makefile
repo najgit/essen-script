@@ -8,7 +8,7 @@ network:
       nameservers:
         addresses: [8.8.8.8, 8.8.4.4]
       routes:
-        - to: 0.0.0.0/0
+        - to: default
           via: IP_GATEWAY
   version: 2
 endef
