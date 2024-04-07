@@ -58,14 +58,6 @@ static-ip:
 	&& echo "=========== set static COMPLETE! restart to apply effect ===========" \
 	&& echo "=========== =================== =========== ========================" 
 
-.PHONY: host-ip
-host-ip:
-	@sed 's/#HOSTIP'
-
-#HOSTIP
-#XXXXXXXX XXXXX
-#HOSTIP
-
 .PHONY: setup-zsh
 setup-zsh: export ZSH_CONFIG:=${ZSH_CONFIG}
 setup-zsh:
