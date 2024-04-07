@@ -58,6 +58,12 @@ static-ip:
 	&& echo "=========== set static COMPLETE! restart to apply effect ===========" \
 	&& echo "=========== =================== =========== ========================" 
 
+.PHONY: setup-essentials
+setup-essentials:
+	@curl -fsSL https://get.docker.com -o get-docker.sh \
+	&& sudo sh get-docker.sh \
+	&& rm get-docker.sh
+
 .PHONY: setup-zsh
 setup-zsh: export ZSH_CONFIG:=${ZSH_CONFIG}
 setup-zsh:
