@@ -2,6 +2,7 @@
 Essentials script with Makefile
 
 # add vscode remotedev config file ~/.ssh/config
+```
 sudo cat>>~/.ssh/config<<EOF
 Host localdev
   HostName localdev
@@ -10,6 +11,7 @@ Host localdev
   Port 22
   IdentityFile ~/.ssh/id_ed25519
 EOF
+```
 
 # Step
 ## 1. Copy SSH Private Key From Windows to Linux Localdev
@@ -22,8 +24,9 @@ your private key contents
 -----END OPENSSH PRIVATE KEY-----
 EOF
 sudo chmod 600 ~/.ssh/id_ed25519
-
-#install essentials 
+```
+## 2. install essentials 
+```
 
 sudo apt update \
 && sudo apt install -y curl iputils-ping net-tools curl git wget make man-db jq \
