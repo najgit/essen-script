@@ -1,10 +1,27 @@
 # essen-script
 Essentials script with Makefile
 
+# add vscode remotedev config file ~/.ssh/config
+sudo cat>>~/.ssh/config<<EOF
+Host localdev
+  HostName localdev
+  User amnat
+  StrictHostKeyChecking no
+  Port 22
+  IdentityFile ~/.ssh/id_ed25519
+EOF
+
 # Step
 ## 1. Copy SSH Private Key From Windows to Linux Localdev
 ```
 c:\Users\amnat\.ssh\id_ed25519 to /home/amnat/.ssh/id_ed25519
+
+sudo cat>~/.ssh/id_ed25519<<EOF
+-----BEGIN OPENSSH PRIVATE KEY-----
+your private key contents
+-----END OPENSSH PRIVATE KEY-----
+EOF
+sudo chmod 600 ~/.ssh/id_ed25519
 
 #install essentials 
 
