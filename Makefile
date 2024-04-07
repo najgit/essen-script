@@ -16,7 +16,6 @@ endef
 export STATIC_CONFIG
 RED=\033[0;31m
 NC=\033[0m
-#git@github.com:najgit/essen-script.git
 
 
 .PHONY: help
@@ -44,9 +43,3 @@ static-ip:
 	&& echo "=========== =================== =========== ========================" \
 	&& echo "=========== set static COMPLETE! restart to apply effect ===========" \
 	&& echo "=========== =================== =========== ========================" 
-
-# 	IP=$(ip addr show eth0 | grep "inet " | awk '{print $2}')
-# SUBNET=$(ip addr show eth0 | grep "inet " | awk '{print $3}') 
-# GATEWAY=$(ip route show default | awk '{print $3}')
-# DNS1=$(nmcli device show eth0 | grep "ipv4.dns[1]" | awk '{print $2}')
-# DNS2=$(nmcli device show eth0 | grep "ipv4.dns[2]" | awk '{print $2}')

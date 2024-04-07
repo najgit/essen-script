@@ -26,11 +26,12 @@ EOF
 sudo chmod 600 ~/.ssh/id_ed25519
 ```
 
-# Install essentials 
+# Install essentials set GIT_EMAIL, GIT_NAME, GIT_SETUP
 ```
 GIT_EMAIL="narj@live.com"
 GIT_NAME="Amnat"
 GIT_SETUP="git@github.com:najgit/essen-script.git"
+
 sudo apt update \
 && sudo apt install -y curl iputils-ping net-tools curl git wget make man-db jq \
 && wget http://security.ubuntu.com/ubuntu/pool/main/o/openssl1.0/libssl1.0.0_1.0.2n-1ubuntu5.13_amd64.deb -O ~/libssl1.0.0_1.0.2n-1ubuntu5.13_amd64.deb \
