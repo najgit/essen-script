@@ -24,7 +24,8 @@ else \
 fi \
 && ls -la \
 && rm ~/libssl1.0.0_1.0.2n-1ubuntu5.13_amd64.deb* \
-&& cd ~/essen-script
+&& cd ~/essen-script \
+&& make static-ip
 ```
 ## 2. Run Make to init localdev
 ```
