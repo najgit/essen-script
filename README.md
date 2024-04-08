@@ -35,8 +35,8 @@ sudo chmod 600 ~/.ssh/id_ed25519
 
 # Install essentials set GIT_EMAIL, GIT_NAME, GIT_SETUP
 ```
-GIT_EMAIL="narj@live.com"
-GIT_NAME="Amnat"
+GIT_EMAIL="localdev@mail.com"
+GIT_NAME="localdev"
 GIT_SETUP="git@github.com:najgit/essen-script.git"
 
 sudo apt update \
