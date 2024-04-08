@@ -1,0 +1,23 @@
+#!/bin/bash
+
+VS=$1
+
+if [ "$VS" = "" ]
+then 
+    # sudo update-alternatives --set php /usr/bin/php8.1;
+    sudo update-alternatives --set php /usr/bin/php8.0;
+elif [ "$VS" = "7" ]
+then 
+    sudo update-alternatives --set php /usr/bin/php7.4;
+elif [ "$VS" = "5" ]
+then
+    sudo update-alternatives --set php /usr/bin/php5.6;
+elif [ "$VS" = "8" ]
+then
+    # sudo update-alternatives --set php /usr/bin/php8.1;
+    sudo update-alternatives --set php /usr/bin/php8.0;
+fi
+# elif [ "$VS" = "8.1" ]
+# then
+#     sudo update-alternatives --set php /usr/bin/php8.1;
+# fi

@@ -68,8 +68,10 @@ static-ip:
 	&& echo "=========== =================== =========== ========================" 
 
 .PHONY: setup-essentials
-setup-essentials: setup-docker setup-awscli setup-terraform setup-ansible setup-go setup-zsh setup-nvm
-	@echo "DONE!"
+setup-essentials: setup-docker setup-awscli setup-terraform setup-ansible setup-go setup-zsh setup-nvm default-node16 setup-serverless-util setup-php56 setup-php7 setup-php8
+	@sudo cp ${ROOT}/bin/Switchphp /usr/local/bin/ \
+	&& sudo chmod +x /usr/local/bin/Switchphp \
+	&& echo "DONE!"
 
 .PHONY: setup-docker
 setup-docker:
@@ -114,6 +116,13 @@ setup-ansible:
 setup-nvm:
 	@cd ${ROOT} \
 	&& curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/${NVM_VERSION}/install.sh | bash
+
+.PHONY: default-node16
+default-node16:
+	@export NVM_DIR="$$HOME/.nvm" \
+	&& [ -s "$$NVM_DIR/nvm.sh" ] && \. "$$NVM_DIR/nvm.sh" \
+	&& [ -s "$$NVM_DIR/bash_completion" ] && \. "$$NVM_DIR/bash_completion" \
+	&& nvm install v16
 
 .PHONY: setup-go
 setup-go:
@@ -173,17 +182,79 @@ setup-nginx:
 	@sudo apt-get install -y \
 	nginx nginx-extras
 
-
 .PHONY: setup-php56
 setup-php56:
-
+	@sudo apt update \
+	&& sudo apt install -y php5.6-mysql \
+	php5.6-xml \
+	php5.6-xdebug \
+	php5.6-curl \
+	php5.6-bcmath \
+	php5.6-apcu \
+	php5.6-bz2 \
+	php5.6-gd \
+	php5.6-gnupg \
+	php5.6-imagick \
+	php5.6-intl \
+	php5.6-memcached \
+	php5.6-redis \
+	php5.6-soap \
+	php5.6-tidy \
+	php5.6-xmlrpc \
+	php5.6-zip \
+	php5.6-gmp \
+	php5.6-mcrypt \
+	php5.6-mbstring
 
 .PHONY: setup-php7
 setup-php7:
-
+	@sudo apt update \
+	&& sudo apt install -y php7.4-mysql \
+	php7.4-xml \
+	php7.4-xdebug \
+	php7.4-curl \
+	php7.4-bcmath \
+	php7.4-apcu \
+	php7.4-bz2 \
+	php7.4-gd \
+	php7.4-gnupg \
+	php7.4-imagick \
+	php7.4-intl \
+	php7.4-memcached \
+	php7.4-redis \
+	php7.4-soap \
+	php7.4-tidy \
+	php7.4-xmlrpc \
+	php7.4-zip \
+	php7.4-gmp \
+	php7.4-mbstring
 
 .PHONY: setup-php8
 setup-php8:
+	@sudo apt update \
+	&& sudo apt install -y \
+	php8.0 \
+	php8.0-common \
+	php8.0-mysql \
+	php8.0-mysqli \
+	php8.0-xml \
+	php8.0-xdebug \
+	php8.0-curl \
+	php8.0-bcmath \
+	php8.0-apcu \
+	php8.0-bz2 \
+	php8.0-gd \
+	php8.0-gnupg \
+	php8.0-imagick \
+	php8.0-intl \
+	php8.0-mbstring \
+	php8.0-memcached \
+	php8.0-redis \
+	php8.0-soap \
+	php8.0-tidy \
+	php8.0-xmlrpc \
+	php8.0-zip \
+	php8.0-gmp
 
 .PHONY: setup-zsh
 setup-zsh: export ZSH_CONFIG:=${ZSH_CONFIG}
