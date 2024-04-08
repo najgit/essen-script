@@ -3,6 +3,10 @@ Essentials script with Makefile
 
 # Install plugin "Remote Explore" and add config file ~/.ssh/config
 ```
+map localdev to /etc/hosts
+#manual add
+xxx.xxx.xxx.xxx localdev
+
 sudo cat>>~/.ssh/config<<EOF
 Host localdev
   HostName localdev
@@ -16,7 +20,9 @@ EOF
 
 # Copy your git SSH Private Key to Linux Localdev
 ```
-.ssh\id_ed25519 to /home/amnat/.ssh/id_ed25519
+cp ~/.ssh/id_ed25519 to /home/localdev/.ssh/id_ed25519
+
+OR manual
 
 sudo cat>~/.ssh/id_ed25519<<EOF
 -----BEGIN OPENSSH PRIVATE KEY-----
