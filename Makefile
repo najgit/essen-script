@@ -62,7 +62,7 @@ static-ip:
 	&& echo "=========== =================== =========== ========================" 
 
 .PHONY: setup-essentials
-setup-essentials: setup-docker setup-awscli setup-terraform setup-ansible
+setup-essentials: setup-docker setup-awscli setup-terraform setup-ansible setup-nvm
 	@echo "DONE!"
 
 .PHONY: setup-docker
