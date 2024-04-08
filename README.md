@@ -3,19 +3,21 @@ Essentials script with Makefile
 
 # Prepare Base local-dev
 ```
-echo "LC_ALL=en_US.UTF-8" >> /etc/environment
-echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
-echo "LANG=en_US.UTF-8" > /etc/locale.conf
-locale-gen en_US.UTF-8
 
 echo "$USER ALL=(ALL:ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/$USER;\
-sudo apt install -y curl iputils-ping net-tools curl git wget make man-db jq unzip gnupg software-properties-common dnsutils ca-certificates cron openssh-client vim nano \
+sudo apt install -y curl iputils-ping net-tools curl git wget make man-db jq unzip gnupg software-properties-common dnsutils ca-certificates cron openssh-client vim nano locales \
 && sudo add-apt-repository ppa:ondrej/php \
 && sudo apt update \
 && wget http://security.ubuntu.com/ubuntu/pool/main/o/openssl1.0/libssl1.0.0_1.0.2n-1ubuntu5.13_amd64.deb -O ~/libssl1.0.0_1.0.2n-1ubuntu5.13_amd64.deb \
 && sudo dpkg -i ~/libssl1.0.0_1.0.2n-1ubuntu5.13_amd64.deb \
 && rm ~/libssl1.0.0_1.0.2n-1ubuntu5.13_amd64.deb \
 && sudo apt upgrade -y
+
+#set locales
+echo "LC_ALL=en_US.UTF-8" >> /etc/environment
+echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
+echo "LANG=en_US.UTF-8" > /etc/locale.conf
+locale-gen en_US.UTF-8
 ```
 
 # Install plugin "Remote Explore" and add config file ~/.ssh/config
