@@ -71,6 +71,7 @@ static-ip:
 setup-essentials: setup-docker setup-awscli setup-terraform setup-ansible setup-go setup-zsh setup-nvm default-node16 setup-serverless-util setup-nginx setup-php56 setup-php7 setup-php8
 	@sudo cp ${ROOT}/bin/Switchphp /usr/local/bin/ \
 	&& sudo chmod +x /usr/local/bin/Switchphp \
+	&& sudo systemctl disable apache2 \
 	&& echo "DONE!"
 
 .PHONY: setup-docker
