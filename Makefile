@@ -144,7 +144,7 @@ setup-go:
 			{ \
 			echo ""; \
 			echo "#golang env"; \
-			echo "export GOPRIVATE=${GO_PRIVATE}" \
+			echo "export GOPRIVATE=${GO_PRIVATE}"; \
 			echo "export GOROOT=/usr/local/go"; \
 			echo "export GOPATH=/d/datago"; \
 			echo 'export PATH=$$GOPATH/bin:$$GOROOT/bin:$$PATH'; \
@@ -157,14 +157,15 @@ setup-go:
 			{ \
 			echo ""; \
 			echo "#golang env"; \
-			echo "export GOPRIVATE=${GO_PRIVATE}" \
+			echo "export GOPRIVATE=${GO_PRIVATE}"; \
 			echo "export GOROOT=/usr/local/go"; \
 			echo "export GOPATH=/d/datago"; \
 			echo 'export PATH=$$GOPATH/bin:$$GOROOT/bin:$$PATH'; \
 			echo ""; \
 			}  >> ~/.zshrc; \
 		fi		 \
-	&& export GOROOT=/usr/local/go; \
+	&& export GOPRIVATE=${GO_PRIVATE}; \
+	export GOROOT=/usr/local/go; \
 	export GOPATH=/d/datago; \
 	export PATH=$$GOPATH/bin:$$GOROOT/bin:$$PATH; \
 	go version
