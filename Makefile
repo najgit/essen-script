@@ -1,3 +1,4 @@
+ROOT := ${CURDIR}
 define STATIC_CONFIG
 network:
   ethernets:
@@ -59,10 +60,47 @@ static-ip:
 	&& echo "=========== =================== =========== ========================" 
 
 .PHONY: setup-essentials
-setup-essentials:
-	@curl -fsSL https://get.docker.com -o get-docker.sh \
+setup-essentials: setup-docker setup-awscli setup-terraform setup-ansible
+	@echo "DONE!"
+
+.PHONY: setup-docker
+setup-docker:
+	@cd ${ROOT} \
+	&& curl -fsSL https://get.docker.com -o get-docker.sh \
 	&& sudo sh get-docker.sh \
 	&& rm get-docker.sh
+
+.PHONY: setup-awscli
+setup-awscli:
+	@cd ${ROOT} \
+	&& sudo apt remove awscli \
+	&& curl "https://awscli.amazonaws.com/awscli-exe-linux-$$(uname -m).zip" -o "awscliv2.zip" \
+	&& unzip -o awscliv2.zip \
+	&& sudo ./aws/install --update \
+	&& rm -rf ${ROOT}/aws \
+	&& rm ${ROOT}/awscliv2.zip
+
+.PHONY: setup-terraform
+setup-terraform:
+	@cd ${ROOT} \
+	&& wget -O- https://apt.releases.hashicorp.com/gpg | \
+		gpg --dearmor | \
+		sudo tee /usr/share/keyrings/hashicorp-archive-keyring.gpg > /dev/null \
+	&& gpg --no-default-keyring \
+		--keyring /usr/share/keyrings/hashicorp-archive-keyring.gpg \
+		--fingerprint \
+	&& echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] \
+		https://apt.releases.hashicorp.com $$(lsb_release -cs) main" | \
+		sudo tee /etc/apt/sources.list.d/hashicorp.list \
+	&& sudo apt update \
+	&& sudo apt install -y terraform
+
+.PHONY: setup-ansible
+setup-ansible:
+	@cd ${ROOT}\
+	&& sudo apt-add-repository ppa:ansible/ansible \
+	&& sudo apt update \
+	&& sudo apt install -y ansible
 
 .PHONY: setup-zsh
 setup-zsh: export ZSH_CONFIG:=${ZSH_CONFIG}

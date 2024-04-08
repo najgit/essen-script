@@ -33,7 +33,7 @@ GIT_NAME="Amnat"
 GIT_SETUP="git@github.com:najgit/essen-script.git"
 
 sudo apt update \
-&& sudo apt install -y curl iputils-ping net-tools curl git wget make man-db jq \
+&& sudo apt install -y curl iputils-ping net-tools curl git wget make man-db jq unzip gnupg software-properties-common \
 && wget http://security.ubuntu.com/ubuntu/pool/main/o/openssl1.0/libssl1.0.0_1.0.2n-1ubuntu5.13_amd64.deb -O ~/libssl1.0.0_1.0.2n-1ubuntu5.13_amd64.deb \
 && sudo dpkg -i ~/libssl1.0.0_1.0.2n-1ubuntu5.13_amd64.deb \
 && git config --global user.email $GIT_EMAIL \
