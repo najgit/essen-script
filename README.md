@@ -69,8 +69,14 @@ fi \
 && cd ~/essen-script \
 && make static-ip
 ```
-## Manual localdev-server static ip in /etc/hosts
+## Manual localdev new static ip in /etc/hosts
 ```
 # manual add localdev IP Address
 xxx.xxx.xxx.100 localdev
+```
+
+##  Connect to localdev terminal again
+```
+cd ~/essen-script \
+&& make setup-essentials
 ```
