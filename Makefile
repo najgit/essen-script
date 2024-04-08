@@ -159,8 +159,19 @@ setup-go:
 	export PATH=$$GOPATH/bin:$$GOROOT/bin:$$PATH; \
 	go version
 
+.PHONY: setup-serverless-util
+setup-serverless-util:
+	@npm i -g @redocly/cli@latest \
+	&& npm install -g pnpm \
+    && npm i -g serverless \
+    && go install github.com/deepmap/oapi-codegen/cmd/oapi-codegen@latest \
+    && go install github.com/jfeliu007/goplantuml/cmd/goplantuml@latest \
+    && sudo apt install -y libsecret-1-dev pass gnupg2  plantuml
+
 .PHONY: setup-nginx
 setup-nginx:
+	@sudo apt-get install -y \
+	nginx nginx-extras
 
 
 .PHONY: setup-php56
