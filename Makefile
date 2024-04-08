@@ -1,4 +1,6 @@
 ROOT := ${CURDIR}
+NVM_VERSION := v0.39.7
+
 define STATIC_CONFIG
 network:
   ethernets:
@@ -101,6 +103,11 @@ setup-ansible:
 	&& sudo apt-add-repository ppa:ansible/ansible \
 	&& sudo apt update \
 	&& sudo apt install -y ansible
+
+.PHONY: setup-nvm
+setup-nvm:
+	@cd ${ROOT} \
+	&& curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/${NVM_VERSION}/install.sh | bash
 
 .PHONY: setup-zsh
 setup-zsh: export ZSH_CONFIG:=${ZSH_CONFIG}

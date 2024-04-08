@@ -6,7 +6,7 @@ Essentials script with Makefile
 sudo cat>>~/.ssh/config<<EOF
 Host localdev
   HostName localdev
-  User amnat
+  User localdev
   StrictHostKeyChecking no
   Port 22
   IdentityFile ~/.ssh/id_ed25519
@@ -16,13 +16,14 @@ EOF
 
 # Copy your git SSH Private Key to Linux Localdev
 ```
-c:\Users\amnat\.ssh\id_ed25519 to /home/amnat/.ssh/id_ed25519
+.ssh\id_ed25519 to /home/amnat/.ssh/id_ed25519
 
 sudo cat>~/.ssh/id_ed25519<<EOF
 -----BEGIN OPENSSH PRIVATE KEY-----
 your private key contents
 -----END OPENSSH PRIVATE KEY-----
 EOF
+
 sudo chmod 600 ~/.ssh/id_ed25519
 ```
 
