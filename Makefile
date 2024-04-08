@@ -68,7 +68,7 @@ static-ip:
 	&& echo "=========== =================== =========== ========================" 
 
 .PHONY: setup-essentials
-setup-essentials: setup-docker setup-awscli setup-terraform setup-ansible setup-go setup-zsh setup-nvm default-node16 setup-serverless-util setup-php56 setup-php7 setup-php8
+setup-essentials: setup-docker setup-awscli setup-terraform setup-ansible setup-go setup-zsh setup-nvm default-node16 setup-serverless-util setup-nginx setup-php56 setup-php7 setup-php8
 	@sudo cp ${ROOT}/bin/Switchphp /usr/local/bin/ \
 	&& sudo chmod +x /usr/local/bin/Switchphp \
 	&& echo "DONE!"
@@ -170,7 +170,13 @@ setup-go:
 
 .PHONY: setup-serverless-util
 setup-serverless-util:
-	@npm i -g @redocly/cli@latest \
+	@export NVM_DIR="$$HOME/.nvm" \
+	&& [ -s "$$NVM_DIR/nvm.sh" ] && \. "$$NVM_DIR/nvm.sh" \
+	&& [ -s "$$NVM_DIR/bash_completion" ] && \. "$$NVM_DIR/bash_completion" \
+	&& export GOROOT=/usr/local/go \
+	&& export GOPATH=/d/datago \
+	&& export PATH=$$GOPATH/bin:$$GOROOT/bin:$$PATH \
+	&& npm i -g @redocly/cli@latest \
 	&& npm install -g pnpm \
     && npm i -g serverless \
     && go install github.com/deepmap/oapi-codegen/cmd/oapi-codegen@latest \
