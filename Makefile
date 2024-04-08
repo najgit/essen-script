@@ -272,3 +272,7 @@ setup-zsh:
 	&& git config --global oh-my-zsh.hide-status 1 \
 	&& git config --global oh-my-zsh.hide-dirty 1 \
 	&& git config --global pager.branch false
+
+.PHONY: setup-localdev
+setup-localdev:
+	@echo "settin local development env."
