@@ -38,13 +38,13 @@ cp ~/.ssh/id_ed25519 to /home/localdev/.ssh/id_ed25519
 
 OR manual
 
-sudo cat>~/.ssh/id_ed25519<<EOF
+cat>~/.ssh/id_ed25519<<EOF
 -----BEGIN OPENSSH PRIVATE KEY-----
 your private key contents
 -----END OPENSSH PRIVATE KEY-----
 EOF
 
-sudo chmod 600 ~/.ssh/id_ed25519
+chmod 600 ~/.ssh/id_ed25519
 ```
 
 # Install essentials set GIT_EMAIL, GIT_NAME, GIT_SETUP
