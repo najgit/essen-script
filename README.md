@@ -64,7 +64,6 @@ else \
     git clone $GIT_SETUP ~/essen-script; \
 fi \
 && ls -la \
-&& rm ~/libssl1.0.0_1.0.2n-1ubuntu5.13_amd64.deb* \
 && cd ~/essen-script \
 && make static-ip
 ```
