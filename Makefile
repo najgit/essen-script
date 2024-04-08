@@ -182,8 +182,8 @@ setup-serverless-util:
 	&& npm i -g @redocly/cli@latest \
 	&& npm install -g pnpm \
     && npm i -g serverless \
-    && go install github.com/deepmap/oapi-codegen/cmd/oapi-codegen@latest \
-    && go install github.com/jfeliu007/goplantuml/cmd/goplantuml@latest \
+    && /usr/local/go/bin/go install github.com/deepmap/oapi-codegen/cmd/oapi-codegen@latest \
+    && /usr/local/go/bin/go install github.com/jfeliu007/goplantuml/cmd/goplantuml@latest \
     && sudo apt install -y libsecret-1-dev pass gnupg2  plantuml
 
 .PHONY: setup-nginx
