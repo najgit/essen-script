@@ -3,12 +3,12 @@ Essentials script with Makefile
 
 # Prepare Base local-dev
 ```
-sudo apt update \
-&& sudo apt install -y curl iputils-ping net-tools curl git wget make man-db jq unzip gnupg software-properties-common dnsutils ca-certificates cron openssh-client add-apt-repository ppa:ondrej/php \
+sudo apt install -y curl iputils-ping net-tools curl git wget make man-db jq unzip gnupg software-properties-common dnsutils ca-certificates cron openssh-client \
+&& sudo add-apt-repository ppa:ondrej/php \
+&& sudo apt update \
 && wget http://security.ubuntu.com/ubuntu/pool/main/o/openssl1.0/libssl1.0.0_1.0.2n-1ubuntu5.13_amd64.deb -O ~/libssl1.0.0_1.0.2n-1ubuntu5.13_amd64.deb \
 && sudo dpkg -i ~/libssl1.0.0_1.0.2n-1ubuntu5.13_amd64.deb \
 && rm ~/libssl1.0.0_1.0.2n-1ubuntu5.13_amd64.deb \
-&& sudo apt update \
 && sudo apt upgrade -y
 ```
 
