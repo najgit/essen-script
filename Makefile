@@ -1,5 +1,12 @@
 ROOT := ${CURDIR}
+
+OS_ARCH :=$(shell uname -m)#x86_64, aarch64, (darwin)arm64
+OS_KERNEL :=$(shell uname -s | tr '[:upper:]' '[:lower:]')#linux(x86_64, aarch64), darwin
+OS_ARCH_GO :=$(shell if [ "${OS_ARCH}" = "x86_64" ]; then echo "amd64"; else echo "arm64"; fi)
+
 NVM_VERSION := v0.39.7
+GO_VERSION := 1.20.14
+GO_PRIVATE :=gitlab.t2p.co.th
 
 define STATIC_CONFIG
 network:
@@ -33,7 +40,6 @@ endef
 RED=\033[0;31m
 NC=\033[0m
 
-
 .PHONY: help
 help:
 	@echo "Hello"
@@ -62,7 +68,7 @@ static-ip:
 	&& echo "=========== =================== =========== ========================" 
 
 .PHONY: setup-essentials
-setup-essentials: setup-docker setup-awscli setup-terraform setup-ansible setup-nvm
+setup-essentials: setup-docker setup-awscli setup-terraform setup-ansible setup-go setup-zsh setup-nvm
 	@echo "DONE!"
 
 .PHONY: setup-docker
@@ -108,6 +114,65 @@ setup-ansible:
 setup-nvm:
 	@cd ${ROOT} \
 	&& curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/${NVM_VERSION}/install.sh | bash
+
+.PHONY: setup-go
+setup-go:
+	@cd ${ROOT} \
+	&& read  -p "Select Golang Version to Install [$$(printf '${RED}')${GO_VERSION}$$(printf '${NC}')]: " newversion \
+	&& GO_VERSION=${GO_VERSION} \
+	&& if [ ! "$${newversion}" = "" ]; then GO_VERSION=$${newversion}; fi \
+	&& sudo mkdir -p /d/datago \
+	&& sudo chown localdev:localdev /d/datago \
+	&& echo "go$${GO_VERSION}.${OS_KERNEL}-${OS_ARCH_GO}" \
+	&& curl -L -o golang.tar.gz https://go.dev/dl/go$${GO_VERSION}.${OS_KERNEL}-${OS_ARCH_GO}.tar.gz \
+	&& sudo rm -rf /usr/local/go \
+	&& sudo tar -C /usr/local -xzf golang.tar.gz \
+	&& rm golang.tar.gz \
+	&& FINDFOUND=$$(grep -ro 'export GOPATH=/d/datago' ~/.bashrc | sort -t: -u -k1,1) \
+	&& if [ ! "$$FINDFOUND" = "export GOPATH=/d/datago" ]; \
+		then \
+			{ \
+			echo ""; \
+			echo "#golang env"; \
+			echo "export GOPRIVATE=${GO_PRIVATE}" \
+			echo "export GOROOT=/usr/local/go"; \
+			echo "export GOPATH=/d/datago"; \
+			echo 'export PATH=$$GOPATH/bin:$$GOROOT/bin:$$PATH'; \
+			echo ""; \
+			}  >> ~/.bashrc; \
+		fi \
+	&& FINDFOUND=$$(grep -ro 'export GOPATH=/d/datago' ~/.zshrc | sort -t: -u -k1,1) \
+	&& if [ ! "$$FINDFOUND" = "export GOPATH=/d/datago" ]; \
+		then \
+			{ \
+			echo ""; \
+			echo "#golang env"; \
+			echo "export GOPRIVATE=${GO_PRIVATE}" \
+			echo "export GOROOT=/usr/local/go"; \
+			echo "export GOPATH=/d/datago"; \
+			echo 'export PATH=$$GOPATH/bin:$$GOROOT/bin:$$PATH'; \
+			echo ""; \
+			}  >> ~/.zshrc; \
+		fi		 \
+	&& export GOROOT=/usr/local/go; \
+	export GOPATH=/d/datago; \
+	export PATH=$$GOPATH/bin:$$GOROOT/bin:$$PATH; \
+	go version
+
+.PHONY: setup-nginx
+setup-nginx:
+
+
+.PHONY: setup-php56
+setup-php56:
+
+
+.PHONY: setup-php7
+setup-php7:
+
+
+.PHONY: setup-php8
+setup-php8:
 
 .PHONY: setup-zsh
 setup-zsh: export ZSH_CONFIG:=${ZSH_CONFIG}
