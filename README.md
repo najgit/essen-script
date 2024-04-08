@@ -67,7 +67,8 @@ fi \
 && cd ~/essen-script \
 && make static-ip
 ```
-## 2. Run Make to init localdev
+## Manual localdev-server static ip in /etc/hosts
 ```
-    make static-ip
+# manual add localdev IP Address
+xxx.xxx.xxx.100 localdev
 ```
