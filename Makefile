@@ -284,4 +284,25 @@ setup-zsh:
 
 .PHONY: setup-localdev
 setup-localdev:
-	@echo "settin local development env."
+	@GIT_EMAIL="your@mail.com" \
+	GIT_NAME="your" \
+	GIT_SETUP="git@github.com:najgit/essen-script.git" \
+	&& read  -p "Setup git email [$$(printf '${RED}')$${GIT_EMAIL}$$(printf '${NC}')]: " new_email \
+	&& read  -p "Setup git user name [$$(printf '${RED}')$${GIT_NAME}$$(printf '${NC}')]: " new_name \
+	&& read  -p "Setup git remote-dev repo [$$(printf '${RED}')$${GIT_SETUP}$$(printf '${NC}')]: " new_repo \
+	&& if [ ! "$${new_email}" = "" ]; then GIT_EMAIL=$${new_email}; fi \
+	&& if [ ! "$${new_name}" = "" ]; then GIT_NAME=$${new_name}; fi \
+	&& if [ ! "$${new_repo}" = "" ]; then GIT_SETUP=$${new_repo}; fi \
+	&& git config --global user.email $${GIT_EMAIL} \
+	&& git config --global user.name $${GIT_NAME} \
+	&& \
+	if [ -d ~/essen-script ]; then \
+		echo "Already clone"; \
+		cd ~/essen-script; \
+		git pull origin; \
+	else \
+		git clone $${GIT_SETUP} ~/essen-script; \
+	fi \
+	&& ls -la \
+	&& cd ~/essen-script \
+	&& make static-ip

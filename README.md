@@ -7,9 +7,6 @@ echo "$USER ALL=(ALL:ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/$USER;\
 sudo apt install -y curl iputils-ping net-tools curl git wget make man-db jq unzip gnupg software-properties-common dnsutils ca-certificates cron openssh-client vim nano locales \
 && sudo add-apt-repository ppa:ondrej/php \
 && sudo apt update \
-&& wget http://security.ubuntu.com/ubuntu/pool/main/o/openssl1.0/libssl1.0.0_1.0.2n-1ubuntu5.13_amd64.deb -O ~/libssl1.0.0_1.0.2n-1ubuntu5.13_amd64.deb \
-&& sudo dpkg -i ~/libssl1.0.0_1.0.2n-1ubuntu5.13_amd64.deb \
-&& rm ~/libssl1.0.0_1.0.2n-1ubuntu5.13_amd64.deb \
 && sudo apt upgrade -y \
 && TZ=Asia/Bangkok \
 && sudo ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ | sudo tee /etc/timezone \
@@ -20,7 +17,19 @@ sudo apt install -y curl iputils-ping net-tools curl git wget make man-db jq unz
 && sudo groupadd localdev -g 1002 \
 && sudo useradd localdev -u 1002 -g 1002 -m -s /bin/bash \
 && sudo usermod -aG sudo localdev \
-&& echo "localdev ALL=(ALL:ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/localdev
+&& echo "localdev ALL=(ALL:ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/localdev \
+&& sudo apt-get install open-vm-tools open-vm-tools-desktop \
+&& sudo apt-get install build-essential module-assistant \
+  linux-headers-virtual linux-image-virtual \
+&& sudo dpkg-reconfigure open-vm-tools
+
+#create mount dir /d/t2pdev, /d/dblkdev, /d/m2pdev
+
+#edit /etc/fstab
+.host:/t2pdev /d/t2pdev fuse.vmhgfs-fuse defaults,allow_other,uid=1002,gid=1002   0 0
+.host:/m2pdev /d/m2pdev fuse.vmhgfs-fuse defaults,allow_other,uid=1002,gid=1002   0 0
+.host:/dblkdev /d/dblkdev fuse.vmhgfs-fuse defaults,allow_other,uid=1002,gid=1002   0 0
+.host:/stbdev /d/stbdev fuse.vmhgfs-fuse defaults,allow_other,uid=1002,gid=1002   0 0
 ```
 
 # Install plugin "Remote Explore" and add config file ~/.ssh/config
