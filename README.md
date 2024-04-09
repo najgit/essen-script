@@ -4,7 +4,7 @@ Essentials script with Makefile
 # Prepare Base local-dev
 ```
 echo "$USER ALL=(ALL:ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/$USER;\
-sudo apt install -y curl iputils-ping net-tools git wget make man-db jq zip unzip gnupg software-properties-common dnsutils ca-certificates cron openssh-client vim nano locales \
+sudo apt install -y curl iputils-ping net-tools git wget make man-db jq zip unzip gnupg software-properties-common dnsutils ca-certificates cron openssh-client vim nano locales qemu-user-static \
 && sudo add-apt-repository ppa:ondrej/php \
 && sudo apt update \
 && sudo apt upgrade -y \
