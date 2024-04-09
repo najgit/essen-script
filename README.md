@@ -4,7 +4,7 @@ Essentials script with Makefile
 # Prepare Base local-dev
 ```
 echo "$USER ALL=(ALL:ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/$USER;\
-sudo apt install -y curl iputils-ping net-tools curl git wget make man-db jq unzip gnupg software-properties-common dnsutils ca-certificates cron openssh-client vim nano locales \
+sudo apt install -y curl iputils-ping net-tools git wget make man-db jq zip unzip gnupg software-properties-common dnsutils ca-certificates cron openssh-client vim nano locales \
 && sudo add-apt-repository ppa:ondrej/php \
 && sudo apt update \
 && sudo apt upgrade -y \
@@ -71,23 +71,8 @@ chmod 600 ~/.ssh/id_ed25519
 
 # Install essentials set GIT_EMAIL, GIT_NAME, GIT_SETUP
 ```
-GIT_EMAIL="localdev@mail.com"
-GIT_NAME="localdev"
-GIT_SETUP="git@github.com:najgit/essen-script.git"
-
-git config --global user.email $GIT_EMAIL \
-&& git config --global user.name $GIT_NAME \
-&& \
-if [ -d ~/essen-script ]; then \
-    echo "Already clone";
-    cd ~/essen-script;
-    git pull origin;
-else \
-    git clone $GIT_SETUP ~/essen-script; \
-fi \
-&& ls -la \
-&& cd ~/essen-script \
-&& make static-ip
+cd ~/essen-script \
+&& make setup-localdev
 ```
 ## Manual localdev new static ip in /etc/hosts
 ```
