@@ -10,15 +10,17 @@ sudo apt install -y curl iputils-ping net-tools curl git wget make man-db jq unz
 && wget http://security.ubuntu.com/ubuntu/pool/main/o/openssl1.0/libssl1.0.0_1.0.2n-1ubuntu5.13_amd64.deb -O ~/libssl1.0.0_1.0.2n-1ubuntu5.13_amd64.deb \
 && sudo dpkg -i ~/libssl1.0.0_1.0.2n-1ubuntu5.13_amd64.deb \
 && rm ~/libssl1.0.0_1.0.2n-1ubuntu5.13_amd64.deb \
-&& sudo apt upgrade -y
-
-#set locales
-TZ=Asia/Bangkok
-ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
-echo "LC_ALL=en_US.UTF-8" | sudo tee -a /etc/environment
-echo "en_US.UTF-8 UTF-8"  | sudo tee -a /etc/locale.gen
-echo "LANG=en_US.UTF-8"  | sudo tee /etc/locale.conf
-sudo locale-gen en_US.UTF-8
+&& sudo apt upgrade -y \
+&& TZ=Asia/Bangkok \
+&& sudo ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ | sudo tee /etc/timezone \
+&& echo "LC_ALL=en_US.UTF-8" | sudo tee -a /etc/environment \
+&& echo "en_US.UTF-8 UTF-8"  | sudo tee -a /etc/locale.gen \
+&& echo "LANG=en_US.UTF-8"  | sudo tee /etc/locale.conf \
+&& sudo locale-gen en_US.UTF-8 \
+&& sudo groupadd localdev -g 1002 \
+&& sudo useradd localdev -u 1002 -g 1002 -m -s /bin/bash \
+&& sudo usermod -aG sudo localdev \
+&& echo "localdev ALL=(ALL:ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/localdev
 ```
 
 # Install plugin "Remote Explore" and add config file ~/.ssh/config
