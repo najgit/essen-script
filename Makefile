@@ -129,7 +129,7 @@ default-node16:
 .PHONY: setup-go
 setup-go:
 	@cd ${ROOT} \
-	&& read  -p "Select Golang Version to Install [$$(printf '${RED}')${GO_VERSION}$$(printf '${NC}')]: " newversion \
+	&& if [ $${IN_DOCKER} = "N" ]; then read  -p "Select Golang Version to Install [$$(printf '${RED}')${GO_VERSION}$$(printf '${NC}')]: " newversion ; fi \
 	&& GO_VERSION=${GO_VERSION} \
 	&& if [ ! "$${newversion}" = "" ]; then GO_VERSION=$${newversion}; fi \
 	&& sudo mkdir -p /d/datago \
@@ -165,11 +165,11 @@ setup-go:
 			echo ""; \
 			}  >> ~/.zshrc; \
 		fi		 \
-	&& export GOPRIVATE=${GO_PRIVATE}; \
-	export GOROOT=/usr/local/go; \
-	export GOPATH=/d/datago; \
-	export PATH=$$GOPATH/bin:$$GOROOT/bin:$$PATH; \
-	go version
+	&& export GOPRIVATE=${GO_PRIVATE} \
+	&& export GOROOT=/usr/local/go \
+	&& export GOPATH=/d/datago \
+	&& export PATH=$$GOPATH/bin:$$GOROOT/bin:$$PATH \
+	&& go version
 
 .PHONY: setup-serverless-util
 setup-serverless-util:

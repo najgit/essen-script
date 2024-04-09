@@ -3,7 +3,6 @@ Essentials script with Makefile
 
 # Prepare Base local-dev
 ```
-
 echo "$USER ALL=(ALL:ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/$USER;\
 sudo apt install -y curl iputils-ping net-tools curl git wget make man-db jq unzip gnupg software-properties-common dnsutils ca-certificates cron openssh-client vim nano locales \
 && sudo add-apt-repository ppa:ondrej/php \
@@ -14,10 +13,12 @@ sudo apt install -y curl iputils-ping net-tools curl git wget make man-db jq unz
 && sudo apt upgrade -y
 
 #set locales
-echo "LC_ALL=en_US.UTF-8" >> /etc/environment
-echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
-echo "LANG=en_US.UTF-8" > /etc/locale.conf
-locale-gen en_US.UTF-8
+TZ=Asia/Bangkok
+ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+echo "LC_ALL=en_US.UTF-8" | sudo tee -a /etc/environment
+echo "en_US.UTF-8 UTF-8"  | sudo tee -a /etc/locale.gen
+echo "LANG=en_US.UTF-8"  | sudo tee /etc/locale.conf
+sudo locale-gen en_US.UTF-8
 ```
 
 # Install plugin "Remote Explore" and add config file ~/.ssh/config
