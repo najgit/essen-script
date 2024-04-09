@@ -129,7 +129,7 @@ default-node16:
 .PHONY: setup-go
 setup-go:
 	@cd ${ROOT} \
-	&& if [ $${IN_DOCKER} = "N" ]; then read  -p "Select Golang Version to Install [$$(printf '${RED}')${GO_VERSION}$$(printf '${NC}')]: " newversion ; fi \
+	&& if [ "$${IN_DOCKER}" = "" ]; then read  -p "Select Golang Version to Install [$$(printf '${RED}')${GO_VERSION}$$(printf '${NC}')]: " newversion ; fi \
 	&& GO_VERSION=${GO_VERSION} \
 	&& if [ ! "$${newversion}" = "" ]; then GO_VERSION=$${newversion}; fi \
 	&& sudo mkdir -p /d/datago \
