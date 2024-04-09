@@ -33,7 +33,7 @@ precmd() { vcs_info }
 zstyle ':vcs_info:git:*' formats '(%b) '
 
 setopt PROMPT_SUBST
-PROMPT='%F{green}%n%f@%F{green}%m [%F{red}%*%f%F{green}]%f %F{blue}%~%f %F{red}$${vcs_info_msg_0_}%f$${NEWLINE}$$ '
+PROMPT='%F{green}%n%f@%F{green}%m [%F{red}`date +%d\(%a\)/%b/%y` %*%f%F{green}]%f %F{blue}%~%f %F{red}$${vcs_info_msg_0_}%f$${NEWLINE}$$ '
 endef
 
 # export STATIC_CONFIG
