@@ -45,7 +45,7 @@ list:
 	@LC_ALL=C $(MAKE) -pRrq -f $(firstword $(MAKEFILE_LIST)) : 2>/dev/null | awk -v RS= -F: '/(^|\n)# Files(\n|$$)/,/(^|\n)# Finished Make data base/ {if ($$1 !~ "^[#.]") {print $$1}}' | sort | grep -E -v -e '^[^[:alnum:]]' -e '^$@$$'
 
 .PHONY: setup-essentials
-setup-essentials: setup-zsh setup-docker setup-awscli setup-terraform setup-ansible setup-go setup-nvm default-node16 setup-serverless-util setup-nginx setup-php56 setup-php7 setup-php8 setup-php83
+setup-essentials: setup-docker setup-awscli setup-terraform setup-ansible setup-go setup-nvm default-node16 setup-serverless-util setup-nginx setup-php56 setup-php7 setup-php8 setup-php83
 	@sudo cp ${ROOT}/bin/Switchphp /usr/local/bin/ \
 	&& sudo chmod +x /usr/local/bin/Switchphp \
 	&& sudo systemctl disable apache2 \
@@ -335,4 +335,5 @@ setup-localdev:
 	fi \
 	&& ls -la \
 	&& cd ~/essen-script \
-	&& make static-ip
+	&& make static-ip \
+	&& make setup-zsh
