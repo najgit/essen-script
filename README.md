@@ -8,7 +8,7 @@ sudo apt update && apt install -y net-tools
 
 # init script after complete
 echo "$USER ALL=(ALL:ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/$USER;\
-sudo apt install -y curl iputils-ping net-tools git wget make man-db jq zip unzip gnupg software-properties-common dnsutils ca-certificates cron openssh-client vim nano locales qemu-user-static \
+sudo apt install -y curl binutils iputils-ping net-tools git wget make man-db jq zip unzip gnupg software-properties-common dnsutils ca-certificates cron openssh-client vim nano locales qemu-user-static \
 && sudo add-apt-repository ppa:ondrej/php \
 && sudo apt update \
 && sudo apt upgrade -y \
@@ -28,7 +28,20 @@ sudo apt install -y curl iputils-ping net-tools git wget make man-db jq zip unzi
 && sudo dpkg-reconfigure open-vm-tools \
 && echo "localdev ALL=(ALL:ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/localdev \
 && sudo mkdir -p /d/t2pdev /d/dblkdev /d/m2pdev /d/stbdev \
-&& sudo chown localdev:localdev /d/t2pdev /d/dblkdev /d/m2pdev /d/stbdev 
+&& sudo chown localdev:localdev \
+/d/t2pdev \
+/d/dblkdev \
+/d/m2pdev \
+/d/stbdev \
+&& sudo apt-get install gawk bison gcc make wget tar -y \
+&& echo "GLIBC version glibc-2.37 for Ubuntu 24.04" \
+&& wget -c https://ftp.gnu.org/gnu/glibc/glibc-2.37.tar.gz \
+&& tar -zxvf glibc-2.37.tar.gz && cd glibc-2.37 \
+&& mkdir glibc-build && cd glibc-build \
+&& ../configure --prefix=/opt/glibc \
+&& make \
+&& make install \
+&& rm -rf glibc-*
 
 #edit /etc/fstab
 .host:/t2pdev /d/t2pdev fuse.vmhgfs-fuse defaults,allow_other,uid=1002,gid=1002   0 0
@@ -91,3 +104,13 @@ xxx.xxx.xxx.100 localdev
 cd ~/essen-script \
 && make setup-essentials
 ```
+
+
+
+sudo apt-get install gawk bison gcc make wget tar -y \
+&& wget -c https://ftp.gnu.org/gnu/glibc/glibc-2.39.tar.gz \
+&& tar -zxvf glibc-2.39.tar.gz && cd glibc-2.39 \
+&& mkdir glibc-build && cd glibc-build \
+&& ../configure --prefix=/opt/glibc \
+&& make \
+&& make install
