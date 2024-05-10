@@ -115,5 +115,5 @@ cd ~/essen-script \
 && make setup-essentials
 ```
 
-
-
+## Host key change
+ssh-keygen -R xxx.xxx.xxx.xxx
