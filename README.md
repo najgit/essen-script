@@ -3,6 +3,10 @@ Essentials script with Makefile
 
 # Prepare Base local-dev
 ```
+# Create new VM with admin user
+sudo apt update && apt install -y net-tools 
+
+# init script after complete
 echo "$USER ALL=(ALL:ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/$USER;\
 sudo apt install -y curl iputils-ping net-tools git wget make man-db jq zip unzip gnupg software-properties-common dnsutils ca-certificates cron openssh-client vim nano locales qemu-user-static \
 && sudo add-apt-repository ppa:ondrej/php \
