@@ -58,7 +58,7 @@ sudo apt install -y curl binutils iputils-ping net-tools git wget make man-db jq
 .host:/m2pdev /d/m2pdev fuse.vmhgfs-fuse defaults,allow_other,uid=1002,gid=1002   0 0
 .host:/dblkdev /d/dblkdev fuse.vmhgfs-fuse defaults,allow_other,uid=1002,gid=1002   0 0
 .host:/stbdev /d/stbdev fuse.vmhgfs-fuse defaults,allow_other,uid=1002,gid=1002   0 0
-.host:/homessh /d/stbdev fuse.vmhgfs-fuse defaults,allow_other,uid=1002,gid=1002   0 0
+.host:/homessh /home/localdev/.ssh fuse.vmhgfs-fuse defaults,allow_other,uid=1002,gid=1002   0 0
 ```
 
 # Install plugin "Remote Explore" and add config file ~/.ssh/config
