@@ -68,8 +68,11 @@ static-ip:
 	&& prefixlen=$$(ip -j -o -f inet addr show $${adapter} | jq -r '.[0].addr_info[0].prefixlen') \
 	&& read  -p "Set new static-ip [$$(printf '${RED}')$${ip}$$(printf '${NC}')]: " newip \
 	&& if [ "$${newip}" = "" ]; then newip=$${ip}; fi \
-	&& sudo cp /etc/netplan/50-cloud-init.yaml /etc/netplan/50-cloud-init.yaml.`date +%d-%m-%y.%M%S` \
-	&& echo "$${STATIC_CONFIG}" | sed "s#ADAPTER#$${adapter}#"  | sed "s#IP_ADDRESS#$${newip}#" | sed "s#IP_PREFIXLEND#$${prefixlen}#" | sed "s#IP_GATEWAY#$${gateway}#" | sudo tee /etc/netplan/50-cloud-init.yaml \
+	&& VERSION=$(cat /etc/os-release | grep VERSION_ID|cut -d'=' -f2|cut -d'"' -f2) \
+	&& yaml_file="00-installer-config.yaml" \
+	&& if [ "$$VERSION" = "24.04" ]; then sudo cp /etc/netplan/50-cloud-init.yaml /etc/netplan/50-cloud-init.yaml.`date +%d-%m-%y.%M%S`; yaml_file="50-cloud-init.yaml"; fi \
+	&& if [ !"$$VERSION" = "24.04" ]; then sudo cp /etc/netplan/00-installer-config.yaml /etc/netplan/00-installer-config.yaml.`date +%d-%m-%y.%M%S`; fi \
+	&& echo "$${STATIC_CONFIG}" | sed "s#ADAPTER#$${adapter}#"  | sed "s#IP_ADDRESS#$${newip}#" | sed "s#IP_PREFIXLEND#$${prefixlen}#" | sed "s#IP_GATEWAY#$${gateway}#" | sudo tee /etc/netplan/$${yaml_file} \
 	&& sudo netplan apply \
 	&& echo "=========== =================== =========== ========================" \
 	&& echo "=========== set static COMPLETE! restart to apply effect ===========" \
