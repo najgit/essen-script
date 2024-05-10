@@ -54,11 +54,11 @@ sudo apt install -y curl binutils iputils-ping net-tools git wget make man-db jq
 #&& rm -rf glibc-*
 
 #edit /etc/fstab
-.host:/t2pdev /d/t2pdev fuse.vmhgfs-fuse defaults,allow_other,uid=1002,gid=1002   0 0
-.host:/m2pdev /d/m2pdev fuse.vmhgfs-fuse defaults,allow_other,uid=1002,gid=1002   0 0
-.host:/dblkdev /d/dblkdev fuse.vmhgfs-fuse defaults,allow_other,uid=1002,gid=1002   0 0
-.host:/stbdev /d/stbdev fuse.vmhgfs-fuse defaults,allow_other,uid=1002,gid=1002   0 0
-.host:/homessh /home/localdev/.ssh fuse.vmhgfs-fuse defaults,allow_other,uid=1002,gid=1002   0 0
+.host:/t2pdev /d/t2pdev fuse.vmhgfs-fuse defaults,allow_other,uid=1002,gid=1002,nofail   0 2
+.host:/m2pdev /d/m2pdev fuse.vmhgfs-fuse defaults,allow_other,uid=1002,gid=1002,nofail   0 2
+.host:/dblkdev /d/dblkdev fuse.vmhgfs-fuse defaults,allow_other,uid=1002,gid=1002,nofail   0 2
+.host:/stbdev /d/stbdev fuse.vmhgfs-fuse defaults,allow_other,uid=1002,gid=1002,nofail   0 2
+.host:/homessh /home/localdev/.ssh fuse.vmhgfs-fuse defaults,allow_other,uid=1002,gid=1002,nofail   0 2
 ```
 
 # Install plugin "Remote Explore" and add config file ~/.ssh/config
