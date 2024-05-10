@@ -40,9 +40,17 @@ endef
 RED=\033[0;31m
 NC=\033[0m
 
-.PHONY: help
-help:
-	@echo "Hello"
+.PHONY: list
+list:
+	@LC_ALL=C $(MAKE) -pRrq -f $(firstword $(MAKEFILE_LIST)) : 2>/dev/null | awk -v RS= -F: '/(^|\n)# Files(\n|$$)/,/(^|\n)# Finished Make data base/ {if ($$1 !~ "^[#.]") {print $$1}}' | sort | grep -E -v -e '^[^[:alnum:]]' -e '^$@$$'
+
+.PHONY: setup-essentials
+setup-essentials: setup-zsh setup-docker setup-awscli setup-terraform setup-ansible setup-go setup-nvm default-node16 setup-serverless-util setup-nginx setup-php56 setup-php7 setup-php8 setup-php83
+	@sudo cp ${ROOT}/bin/Switchphp /usr/local/bin/ \
+	&& sudo chmod +x /usr/local/bin/Switchphp \
+	&& sudo systemctl disable apache2 \
+	&& sudo usermod -aG docker localdev \
+	&& echo "DONE!"
 
 .PHONY: static-ip
 static-ip: export STATIC_CONFIG:=${STATIC_CONFIG}
@@ -60,20 +68,12 @@ static-ip:
 	&& prefixlen=$$(ip -j -o -f inet addr show $${adapter} | jq -r '.[0].addr_info[0].prefixlen') \
 	&& read  -p "Set new static-ip [$$(printf '${RED}')$${ip}$$(printf '${NC}')]: " newip \
 	&& if [ "$${newip}" = "" ]; then newip=$${ip}; fi \
-	&& sudo cp /etc/netplan/00-installer-config.yaml /etc/netplan/00-installer-config.yaml.backup.`date +%d-%m-%y.%M%S` \
-	&& echo "$${STATIC_CONFIG}" | sed "s#ADAPTER#$${adapter}#"  | sed "s#IP_ADDRESS#$${newip}#" | sed "s#IP_PREFIXLEND#$${prefixlen}#" | sed "s#IP_GATEWAY#$${gateway}#" | sudo tee /etc/netplan/00-installer-config.yaml \
+	&& sudo cp /etc/netplan/50-cloud-init.yaml /etc/netplan/50-cloud-init.yaml.`date +%d-%m-%y.%M%S` \
+	&& echo "$${STATIC_CONFIG}" | sed "s#ADAPTER#$${adapter}#"  | sed "s#IP_ADDRESS#$${newip}#" | sed "s#IP_PREFIXLEND#$${prefixlen}#" | sed "s#IP_GATEWAY#$${gateway}#" | sudo tee /etc/netplan/50-cloud-init.yaml \
 	&& sudo netplan apply \
 	&& echo "=========== =================== =========== ========================" \
 	&& echo "=========== set static COMPLETE! restart to apply effect ===========" \
 	&& echo "=========== =================== =========== ========================" 
-
-.PHONY: setup-essentials
-setup-essentials: setup-zsh setup-docker setup-awscli setup-terraform setup-ansible setup-go setup-nvm default-node16 setup-serverless-util setup-nginx setup-php56 setup-php7 setup-php8
-	@sudo cp ${ROOT}/bin/Switchphp /usr/local/bin/ \
-	&& sudo chmod +x /usr/local/bin/Switchphp \
-	&& sudo systemctl disable apache2 \
-	&& sudo usermod -aG docker localdev \
-	&& echo "DONE!"
 
 .PHONY: setup-docker
 setup-docker:
@@ -264,6 +264,33 @@ setup-php8:
 	php8.0-xmlrpc \
 	php8.0-zip \
 	php8.0-gmp
+
+.PHONY: setup-php83
+setup-php83:
+	@sudo apt update \
+	&& sudo apt install -y \
+	php8.3 \
+	php8.3-common \
+	php8.3-mysql \
+	php8.3-mysqli \
+	php8.3-xml \
+	php8.3-xdebug \
+	php8.3-curl \
+	php8.3-bcmath \
+	php8.3-apcu \
+	php8.3-bz2 \
+	php8.3-gd \
+	php8.3-gnupg \
+	php8.3-imagick \
+	php8.3-intl \
+	php8.3-mbstring \
+	php8.3-memcached \
+	php8.3-redis \
+	php8.3-soap \
+	php8.3-tidy \
+	php8.3-xmlrpc \
+	php8.3-zip \
+	php8.3-gmp
 
 .PHONY: setup-zsh
 setup-zsh: export ZSH_CONFIG:=${ZSH_CONFIG}
