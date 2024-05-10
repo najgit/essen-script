@@ -21,15 +21,17 @@ sudo apt install -y curl iputils-ping net-tools git wget make man-db jq zip unzi
 && sudo apt-get install open-vm-tools open-vm-tools-desktop \
 && sudo apt-get install build-essential module-assistant \
   linux-headers-virtual linux-image-virtual \
-&& sudo dpkg-reconfigure open-vm-tools
-
-#create mount dir /d/t2pdev, /d/dblkdev, /d/m2pdev
+&& sudo dpkg-reconfigure open-vm-tools \
+&& echo "localdev ALL=(ALL:ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/localdev \
+&& sudo mkdir -p /d/t2pdev /d/dblkdev /d/m2pdev /d/stbdev \
+&& sudo chown localdev:localdev /d/t2pdev /d/dblkdev /d/m2pdev /d/stbdev 
 
 #edit /etc/fstab
 .host:/t2pdev /d/t2pdev fuse.vmhgfs-fuse defaults,allow_other,uid=1002,gid=1002   0 0
 .host:/m2pdev /d/m2pdev fuse.vmhgfs-fuse defaults,allow_other,uid=1002,gid=1002   0 0
 .host:/dblkdev /d/dblkdev fuse.vmhgfs-fuse defaults,allow_other,uid=1002,gid=1002   0 0
 .host:/stbdev /d/stbdev fuse.vmhgfs-fuse defaults,allow_other,uid=1002,gid=1002   0 0
+.host:/homessh /d/stbdev fuse.vmhgfs-fuse defaults,allow_other,uid=1002,gid=1002   0 0
 ```
 
 # Install plugin "Remote Explore" and add config file ~/.ssh/config
