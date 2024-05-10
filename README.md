@@ -22,8 +22,8 @@ sudo apt install -y curl iputils-ping net-tools git wget make man-db jq zip unzi
 && sudo useradd localdev -u 1002 -g 1002 -m -s /bin/bash \
 && sudo usermod -aG sudo localdev \
 && echo "localdev ALL=(ALL:ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/localdev \
-&& sudo apt-get install open-vm-tools open-vm-tools-desktop \
-&& sudo apt-get install build-essential module-assistant \
+&& sudo apt-get install -y open-vm-tools open-vm-tools-desktop \
+&& sudo apt-get install -y build-essential module-assistant \
   linux-headers-virtual linux-image-virtual \
 && sudo dpkg-reconfigure open-vm-tools \
 && echo "localdev ALL=(ALL:ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/localdev \
