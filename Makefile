@@ -40,9 +40,15 @@ endef
 RED=\033[0;31m
 NC=\033[0m
 
-.PHONY: list
+.PHONY: list #hide#
 list:
-	@LC_ALL=C $(MAKE) -pRrq -f $(firstword $(MAKEFILE_LIST)) : 2>/dev/null | awk -v RS= -F: '/(^|\n)# Files(\n|$$)/,/(^|\n)# Finished Make data base/ {if ($$1 !~ "^[#.]") {print $$1}}' | sort | grep -E -v -e '^[^[:alnum:]]' -e '^$@$$'
+	@grep -E "^\.PHONY:" Makefile \
+	| grep -v ":default" \
+	| sed "s/.PHONY:/  make /"  \
+	| sed "s/ #opt://" \
+	| sed "s/ #hint:/   \t||/" \
+	| grep -v '#hide#' \
+	| grep -v -E "^[[:space:]]*_" | sort
 
 .PHONY: setup-essentials
 setup-essentials: setup-docker setup-awscli setup-terraform setup-ansible setup-go setup-nvm default-node16 setup-serverless-util setup-nginx setup-php56 setup-php7 setup-php8 setup-php83
@@ -50,6 +56,7 @@ setup-essentials: setup-docker setup-awscli setup-terraform setup-ansible setup-
 	&& sudo chmod +x /usr/local/bin/Switchphp \
 	&& sudo systemctl disable apache2 \
 	&& sudo usermod -aG docker localdev \
+	&& sudo apt install -y xclip \
 	&& echo "DONE!"
 
 .PHONY: static-ip
@@ -336,4 +343,9 @@ setup-localdev:
 	&& ls -la \
 	&& cd ~/essen-script \
 	&& make static-ip \
-	&& make setup-zsh
+	&& make setup-zsh \
+	&& FINDFOUND="$(shell bash -c "if [ -f ~/.zshrc ]; then grep -ro 'pbcopy'; fi")" \
+	&& if [ "$${FINDFOUND}" = "" ]; then echo "alias pbcopy='xclip -sel clip'" | sudo tee -a ~/.zshrc ; fi \
+	&& FINDFOUND="$(shell bash -c "if [ -f ~/.bashrc ]; then grep -ro 'pbcopy'; fi")" \
+	&& if [ "$${FINDFOUND}" = "" ]; then echo "alias pbcopy='xclip -sel clip'" | sudo tee -a ~/.bashrc ; fi
+	
