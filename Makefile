@@ -343,8 +343,8 @@ setup-localdev:
 	&& ls -la \
 	&& cd ~/essen-script \
 	&& make setup-zsh \
-	&& FINDFOUND="$(shell bash -c "if [ -f ~/.zshrc ]; then grep -ro 'pbcopy'; fi")" \
+	&& FINDFOUND="$(shell bash -c "if [ -f ~/.zshrc ]; then grep -ro 'pbcopy' ~/.zshrc ; fi")" \
 	&& if [ "$${FINDFOUND}" = "" ]; then echo "alias pbcopy='xclip -sel clip'" | sudo tee -a ~/.zshrc ; fi \
-	&& FINDFOUND="$(shell bash -c "if [ -f ~/.bashrc ]; then grep -ro 'pbcopy'; fi")" \
+	&& FINDFOUND="$(shell bash -c "if [ -f ~/.bashrc ]; then grep -ro 'pbcopy' ~/.bashrc; fi")" \
 	&& if [ "$${FINDFOUND}" = "" ]; then echo "alias pbcopy='xclip -sel clip'" | sudo tee -a ~/.bashrc ; fi \
 	&& make static-ip 
