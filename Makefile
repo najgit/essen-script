@@ -142,8 +142,8 @@ setup-go:
 	&& if [ "$${IN_DOCKER}" = "" ]; then read  -p "Select Golang Version to Install [$$(printf '${RED}')${GO_VERSION}$$(printf '${NC}')]: " newversion ; fi \
 	&& GO_VERSION=${GO_VERSION} \
 	&& if [ ! "$${newversion}" = "" ]; then GO_VERSION=$${newversion}; fi \
-	&& sudo mkdir -p /d/datago \
-	&& sudo chown localdev:localdev /d/datago \
+	&& sudo mkdir -p /d/datago /datago \
+	&& sudo chown localdev:localdev /d/datago /datago \
 	&& echo "go$${GO_VERSION}.${OS_KERNEL}-${OS_ARCH_GO}" \
 	&& curl -L -o golang.tar.gz https://go.dev/dl/go$${GO_VERSION}.${OS_KERNEL}-${OS_ARCH_GO}.tar.gz \
 	&& sudo rm -rf /usr/local/go \
