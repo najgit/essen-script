@@ -347,4 +347,11 @@ setup-localdev:
 	&& if [ "$${FINDFOUND}" = "" ]; then echo "alias pbcopy='xclip -sel clip'" | sudo tee -a ~/.zshrc ; fi \
 	&& FINDFOUND="$(shell bash -c "if [ -f ~/.bashrc ]; then grep -ro 'pbcopy' ~/.bashrc; fi")" \
 	&& if [ "$${FINDFOUND}" = "" ]; then echo "alias pbcopy='xclip -sel clip'" | sudo tee -a ~/.bashrc ; fi \
+	&& echo "set go private" \
+	&& FINDFOUND="$(shell bash -c "if [ -f ~/.zshrc ]; then grep -ro 'GOPRIVATE=' ~/.zshrc ; fi")" \
+	&& if [ "$${FINDFOUND}" = "" ]; then echo "GOPRIVATE=gitlab.t2p.co.th" | sudo tee -a ~/.zshrc ; fi \
+	&& FINDFOUND="$(shell bash -c "if [ -f ~/.bashrc ]; then grep -ro 'GOPRIVATE=' ~/.bashrc; fi")" \
+	&& if [ "$${FINDFOUND}" = "" ]; then echo "GOPRIVATE=gitlab.t2p.co.th" | sudo tee -a ~/.bashrc ; fi \
+	&& echo "make go get use SSH insteam of HTTP" \
+	&& git config --global url."git@gitlab.t2p.co.th:".insteadOf "http://gitlab.t2p.co.th/" \
 	&& make static-ip 
